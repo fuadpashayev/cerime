@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" >
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/license"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="Vəsiqənin seriya № : AA123456"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/birth"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="Təvəllüd : gün.ay.il"
+                    android:inputType="date"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/license"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <EditText
+                    android:id="@+id/valid"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="Etibarlıdır : gün.ay.il"
+                    android:inputType="date"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/birth"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="Adınız"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/valid"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <EditText
+                    android:id="@+id/surname"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="Soyadınız"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <EditText
+                    android:id="@+id/login"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="İstifadəçi adı (min. 6 simvol)"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/surname"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="Şifrə (min. 6 simvol)"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login" />
+
+                <EditText
+                    android:id="@+id/password_confirmation"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="Təkrar Şifrə"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#404590"
+                    android:ems="10"
+                    android:hint="E-poçt"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#b6b6b6"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password_confirmation"
+                    app:layout_constraintVertical_bias="0.6" />
+
+                <Button
+                    android:id="@+id/signUp"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/input"
+                    android:backgroundTint="#ffffff"
+                    android:foreground="?selectableItemBackground"
+                    android:text="Qeyd ol"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/email" />
+
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </android.support.constraint.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/copy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#ffffff">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/paste"
+            android:text="sdsd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
