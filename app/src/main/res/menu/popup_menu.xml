@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:titleCondensed="name"
+        android:enabled="false"
+        android:icon="@drawable/ic_person"
+        android:iconTint="@color/colorPrimary"
+        android:title="Name" />
+
+    <item
+        android:titleCondensed="clearBal"
+        android:icon="@drawable/ic_delete"
+        android:iconTint="@color/colorPrimary"
+        android:title="Bal yaddaşını təmizlə" />
+
+    <item
+        android:titleCondensed="exit"
+        android:icon="@drawable/ic_exit"
+        android:iconTint="@color/colorPrimary"
+        android:title="Çıxış"/>
+
+</menu>

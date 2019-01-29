@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:weightSum="1.0"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Adı"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="name"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:weightSum="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/layout1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Soyadı"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dsurname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="surname"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:weightSum="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/layout2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Ata adı"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dfatherName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="fatherName"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout4"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:weightSum="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/layout3">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Avtomobil nömrəsi"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dcarNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="carNumber"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout5"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:weightSum="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/layout4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Protokol"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dprotocol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="protocol"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout6"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:weightSum="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/layout5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Bal"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dbal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="bal"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout7"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:weightSum="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/layout6">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Qərar tarixi"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dstart_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="start_date"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout8"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/layout7"
+        android:weightSum="1.0">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="Bitmə tarixi"
+            android:textColor="#333333" />
+
+        <TextView
+            android:id="@+id/dend_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:paddingLeft="20dp"
+            android:text="end_date"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -2,7 +2,9 @@ package info.pashayev.cerime
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.support.constraint.ConstraintLayout
 import android.util.Log
+import android.widget.PopupMenu
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -79,4 +81,16 @@ class Session(val session:SharedPreferences){
     fun getAll():MutableMap<String,*>{
         return session.all
     }
+
+    fun addStringSet(key:String,data:MutableSet<String>){
+        val edit = session.edit()
+        edit.putStringSet(key,data)
+        edit.apply()
+    }
+
+
+}
+
+class Menu(val context: Context,val view:ConstraintLayout):PopupMenu(context,view){
+
 }

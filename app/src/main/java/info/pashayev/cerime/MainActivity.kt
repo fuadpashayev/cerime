@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences(Preference, Context.MODE_PRIVATE)
         manager = supportFragmentManager
         val session = Session(sharedPreferences).getAll()
-        Log.d("-----sessss", session.toString() + " - ")
         if (session["login"] != null) {
             user = User(login, password)
             val intent = Intent(this@MainActivity, HomeActivity::class.java)
