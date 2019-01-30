@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationCompat
 import android.support.v7.widget.RecyclerView
@@ -31,14 +32,19 @@ class BalFragment : Fragment() {
     val Preference = "session"
     var user:User?=null
     lateinit var protocols:MutableSet<String>
+//    override fun onResume() {
+//        printProtocols()
+//        sharedPreferences.edit().remove("protocols").apply()
+//        super.onResume()
+//    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_bal, container, false)
-        sharedPreferences = context!!.getSharedPreferences(Preference, Context.MODE_PRIVATE)
+        sharedPreferences = activity!!.getSharedPreferences(Preference, Context.MODE_PRIVATE)
         session = Session(sharedPreferences).getAll()
         user = User(session["login"]!!,session["password"]!!)
-        protocols = sharedPreferences.getStringSet("protocols", hashSetOf())
+        protocols = HashSet<String>(sharedPreferences.getStringSet("protocols", HashSet<String>()))
+
         Log.d("-----sessss", sharedPreferences.all.toString() + " - ")
-        Log.d("------old protocols",protocols.toString())
         val login = user?.login
         val password = user?.password
         val url = "http://test.azweb.dk/api/test" //"https://cerime.mia.gov.az/Dispatcher"
@@ -54,11 +60,11 @@ class BalFragment : Fragment() {
 
         Timer().scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-                Query(context!!).post(url,params,headers,object :ResponseCallBack{
+                notification()
+                Query(context!!).post(url,params,headers,object:ResponseCallBack{
                     override fun onSuccess(response: String?) {
                         val res = response?.string()
                         val document = Jsoup.parse(res)
-                        val infos = document.getElementsByClass("info")
                         val bals = document.select("#newspaper-b tbody tr")
 
                         if(!protocols.containsAll(bals.eachText())) {
@@ -66,26 +72,19 @@ class BalFragment : Fragment() {
                                 val bprotokol = bal.allElements[5].text()
                                 if (!protocols.contains(bprotokol)) {
                                     protocols.add(bprotokol)
-                                    notification()
+
                                 }
-
                             }
+                            val editor = sharedPreferences.edit()
+                            editor.putStringSet("protocols", protocols)
+                            editor.apply()
+                            Log.d("------old protocols",protocols.toString())
 
-                            val editor = Session(sharedPreferences)
-                            editor.addStringSet("protocols", protocols)
-
-                            val editor1 = sharedPreferences.edit()
-                            editor.addStringSet("protocols", protocols)
 
 
 
                         }
 
-
-
-
-
-                        Log.d("------session protocols",protocols.toString())
                         if(bals.size>0){
                             val adapter = BalAdapter(bals,activity!!)
                             view.list.adapter = adapter
@@ -102,18 +101,18 @@ class BalFragment : Fragment() {
         return view
     }
 
+    fun printProtocols(){
+        val protocolsAll = sharedPreferences.getStringSet("protocols", hashSetOf())
+        Log.d("------afterAll",protocolsAll.toString())
+    }
+
     fun notification(){
         val notification = NotificationCompat.Builder(activity!!, "notify_protocol")
         val ii = Intent(activity, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(activity, 0, ii, 0)
-        val bigText = NotificationCompat.BigTextStyle()
-        //bigText.bigText("Yeni cərimə balınız var")
-        //bigText.setBigContentTitle("Qalan vaxt")
-        bigText.setSummaryText("Yeni cərimə balınız var")
+        notification.setContentText("Yeni cərimə balınız var")
         notification.setContentIntent(pendingIntent)
         notification.setSmallIcon(R.mipmap.background)
-        notification.priority = Notification.PRIORITY_MAX
-        notification.setStyle(bigText)
 
         val mNotificationManager = activity!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

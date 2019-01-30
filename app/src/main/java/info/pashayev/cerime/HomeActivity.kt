@@ -1,10 +1,10 @@
 package info.pashayev.cerime
 
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.*
 import android.content.res.ColorStateList
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.IBinder
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.TabLayout
 import android.support.v4.widget.SwipeRefreshLayout
@@ -23,14 +23,29 @@ import java.lang.reflect.AccessibleObject.setAccessible
 import java.lang.reflect.AccessibleObject.setAccessible
 
 
+class HomeActivity : AppCompatActivity(),ServiceConnection {
+    override fun onServiceDisconnected(name: ComponentName?) {
+        Log.d("--------connection","disconnected")
+    }
 
+    override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+        Log.d("--------connection","connected")
+    }
 
-
-class HomeActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var session:MutableMap<String,*>
     val Preference = "session"
     var user:User?=null
+
+
+    override fun onStop() {
+        val intent = Intent(this, CerimeService::class.java)
+        startService(intent)
+        super.onStop()
+        Log.d("------onStop","onStop")
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -73,11 +88,7 @@ class HomeActivity : AppCompatActivity() {
                     }
 
                     "clearBal"->{
-                        val editor = sharedPreferences.edit()
-                        editor.remove("protocols")
-                        editor.remove("check")
-                        editor.apply()
-
+                        sharedPreferences.edit().remove("protocols").apply()
                         Toast.makeText(this,"Yaddaş təmizləndi",Toast.LENGTH_LONG).show()
                     }
                 }

@@ -1,14 +1,21 @@
 package info.pashayev.cerime
 
+import android.app.*
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
+import android.os.IBinder
 import android.support.constraint.ConstraintLayout
+import android.support.v4.app.NotificationCompat
 import android.util.Log
 import android.widget.PopupMenu
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import java.util.*
+
 
 class Query(val context: Context){
     fun get(url:String,headers:MutableMap<String,String?>?=null,responseCallBack: ResponseCallBack){
@@ -91,6 +98,36 @@ class Session(val session:SharedPreferences){
 
 }
 
-class Menu(val context: Context,val view:ConstraintLayout):PopupMenu(context,view){
+class CerimeService: Service() {
 
+    override fun onBind(intent: Intent): IBinder? {
+        return null
+    }
+    override fun onStartCommand(intent:Intent, flags:Int, startId:Int):Int {
+        return START_STICKY
+    }
+    private fun startForeground() {
+//        val notificationIntent = Intent(this, MainActivity::class.java)
+//        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+//        val notification = NotificationCompat.Builder(this, "notify_protocol")
+//
+//        val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val channel = NotificationChannel("notify_protocol", "Cərimə", NotificationManager.IMPORTANCE_DEFAULT)
+//            mNotificationManager.createNotificationChannel(channel)
+//        }
+//        startForeground(NOTIF_ID, notification
+//                .setOngoing(true)
+//                .setSmallIcon(R.drawable.ic_person)
+//                .setContentTitle(getString(R.string.app_name))
+//                .setContentText("Service is running background")
+//                .setContentIntent(pendingIntent)
+//                .setPriority(Notification.PRIORITY_MAX)
+//                .build())
+    }
+    companion object {
+        private val NOTIF_ID = 1
+        private val NOTIF_CHANNEL_ID = "notify_cerime_service"
+    }
 }
+
