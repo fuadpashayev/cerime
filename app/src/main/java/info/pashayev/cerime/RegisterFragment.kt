@@ -24,6 +24,7 @@ class RegisterFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
         sharedPreferences = context!!.getSharedPreferences(Preference, Context.MODE_PRIVATE)
         view.signUp.setOnClickListener {
+            view.loader.visibility = View.VISIBLE
             val license = view.license.text.toString()
             val birth = view.birth.text.toString()
             val valid = view.valid.text.toString()
@@ -93,6 +94,7 @@ class RegisterFragment : Fragment() {
                             editor.apply()
                             val intent = Intent(activity, HomeActivity::class.java)
                             startActivity(intent)
+                            view.loader.visibility = View.GONE
                         }
                     }
 

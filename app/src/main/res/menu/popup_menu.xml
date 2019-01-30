@@ -12,6 +12,7 @@
 
     <item
         android:titleCondensed="clearBal"
+        android:visible="false"
         android:icon="@drawable/ic_delete"
         android:iconTint="@color/colorPrimary"
         android:title="Bal yaddaşını təmizlə" />

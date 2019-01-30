@@ -15,6 +15,11 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import java.util.*
+import android.os.SystemClock
+import android.app.AlarmManager
+import android.app.PendingIntent
+
+
 
 
 class Query(val context: Context){
@@ -100,6 +105,19 @@ class Session(val session:SharedPreferences){
 
 class CerimeService: Service() {
 
+    override fun onTaskRemoved(rootIntent: Intent) {
+        val restartServiceIntent = Intent(applicationContext, this.javaClass)
+        restartServiceIntent.`package` = packageName
+
+        val restartServicePendingIntent = PendingIntent.getService(applicationContext, 1, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT)
+        val alarmService = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmService.set(
+                AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + 1000,
+                restartServicePendingIntent)
+
+        super.onTaskRemoved(rootIntent)
+    }
     override fun onBind(intent: Intent): IBinder? {
         return null
     }

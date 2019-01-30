@@ -25,20 +25,27 @@ class MainActivity : AppCompatActivity() {
     lateinit var manager: FragmentManager
     lateinit var editor: SharedPreferences.Editor
     var openedFragment = false
+    var not_type = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         sharedPreferences = getSharedPreferences(Preference, Context.MODE_PRIVATE)
         manager = supportFragmentManager
+
+        if(intent.extras!=null) {
+            not_type = intent.extras.getInt("not_type", 0)
+        }
         val session = Session(sharedPreferences).getAll()
         if (session["login"] != null) {
             user = User(login, password)
             val intent = Intent(this@MainActivity, HomeActivity::class.java)
+            intent.putExtra("not_type",not_type)
             startActivity(intent)
         }
 
         signIn.setOnClickListener {
+            loader.visibility = View.VISIBLE
             val login = login.text.toString()
             val password = password.text.toString()
             val url = "https://cerime.mia.gov.az/Dispatcher"
@@ -63,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                         editor.apply()
                         val intent = Intent(this@MainActivity, HomeActivity::class.java)
                         startActivity(intent)
+                        loader.visibility = View.GONE
                     }
 
 

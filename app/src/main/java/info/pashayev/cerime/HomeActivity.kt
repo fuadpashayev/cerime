@@ -21,43 +21,56 @@ import org.jsoup.Jsoup
 import android.support.v7.view.menu.MenuPopupHelper
 import java.lang.reflect.AccessibleObject.setAccessible
 import java.lang.reflect.AccessibleObject.setAccessible
+import android.app.ActivityManager
+import android.content.Context.ACTIVITY_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.content.Intent
+import android.R.string.cancel
+import android.content.Context.NOTIFICATION_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.app.NotificationManager
+import android.os.Build
+import android.support.annotation.RequiresApi
 
 
-class HomeActivity : AppCompatActivity(),ServiceConnection {
-    override fun onServiceDisconnected(name: ComponentName?) {
-        Log.d("--------connection","disconnected")
-    }
+class HomeActivity : AppCompatActivity() {
 
-    override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-        Log.d("--------connection","connected")
-    }
 
     lateinit var sharedPreferences: SharedPreferences
     lateinit var session:MutableMap<String,*>
     val Preference = "session"
     var user:User?=null
 
-
-    override fun onStop() {
-        val intent = Intent(this, CerimeService::class.java)
-        startService(intent)
-        super.onStop()
-        Log.d("------onStop","onStop")
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sIntent = Intent(this, CerimeService::class.java)
+        startService(sIntent)
         setContentView(R.layout.activity_home)
         supportActionBar?.hide()
         sharedPreferences = getSharedPreferences(Preference, Context.MODE_PRIVATE)
         session = Session(sharedPreferences).getAll()
         user = User(session["login"]!!,session["password"]!!)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(0)
+        notificationManager.deleteNotificationChannel("notify_protocol")
+        notificationManager.deleteNotificationChannel("notify_cprotocol")
+
+        var notificationRefer = 0
+        if(intent.extras!=null)
+            notificationRefer = intent.extras.getInt("not_type", 0)
+
 
         val adapter = FragmentPager(this, supportFragmentManager)
         viewPager.adapter = adapter
         val tabLayout = sliding_tabs as TabLayout
         tabLayout.setupWithViewPager(viewPager)
+        tabLayout.getTabAt(notificationRefer)?.select()
 //        tabLayout.getTabAt(2)?.setIcon(R.drawable.ic_more)
 //        tabLayout.tabIconTint = ColorStateList.valueOf(resources.getColor(R.color.white))
 //        tabLayout.setWrapContent(2)
@@ -88,7 +101,10 @@ class HomeActivity : AppCompatActivity(),ServiceConnection {
                     }
 
                     "clearBal"->{
-                        sharedPreferences.edit().remove("protocols").apply()
+                        val editor = sharedPreferences.edit()
+                        editor.remove("protocols")
+                        editor.remove("cprotocols")
+                        editor.apply()
                         Toast.makeText(this,"Yaddaş təmizləndi",Toast.LENGTH_LONG).show()
                     }
                 }

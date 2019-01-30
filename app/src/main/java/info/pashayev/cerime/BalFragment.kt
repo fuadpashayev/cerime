@@ -25,6 +25,12 @@ import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 import java.util.*
 import kotlin.collections.HashSet
+import android.media.RingtoneManager
+import android.media.Ringtone
+
+
+
+
 
 class BalFragment : Fragment() {
     lateinit var sharedPreferences: SharedPreferences
@@ -32,22 +38,23 @@ class BalFragment : Fragment() {
     val Preference = "session"
     var user:User?=null
     lateinit var protocols:MutableSet<String>
-//    override fun onResume() {
-//        printProtocols()
-//        sharedPreferences.edit().remove("protocols").apply()
-//        super.onResume()
-//    }
+    var timer:Timer? = null
+    override fun onStop() {
+        super.onStop()
+        if(timer!=null)
+            timer!!.cancel()
+
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_bal, container, false)
         sharedPreferences = activity!!.getSharedPreferences(Preference, Context.MODE_PRIVATE)
         session = Session(sharedPreferences).getAll()
         user = User(session["login"]!!,session["password"]!!)
-        protocols = HashSet<String>(sharedPreferences.getStringSet("protocols", HashSet<String>()))
+        protocols = HashSet(sharedPreferences.getStringSet("protocols", HashSet<String>()))
 
-        Log.d("-----sessss", sharedPreferences.all.toString() + " - ")
         val login = user?.login
         val password = user?.password
-        val url = "http://test.azweb.dk/api/test" //"https://cerime.mia.gov.az/Dispatcher"
+        val url = "https://cerime.mia.gov.az/Dispatcher" //"http://test.azweb.dk/api/test" //
         val params:MutableMap<String,String?> = HashMap()
         params["next.page"] = "RegisteredLogin?lang=az"
         params["uname"] = login
@@ -57,53 +64,46 @@ class BalFragment : Fragment() {
         headers!!["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"
         headers["Content-Type"] = "application/x-www-form-urlencoded"
 
-
-        Timer().scheduleAtFixedRate(object : TimerTask() {
+        timer = Timer()
+        timer?.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 notification()
-                Query(context!!).post(url,params,headers,object:ResponseCallBack{
+                Query(activity!!).post(url,params,headers,object:ResponseCallBack{
                     override fun onSuccess(response: String?) {
                         val res = response?.string()
                         val document = Jsoup.parse(res)
-                        val bals = document.select("#newspaper-b tbody tr")
+                        val newspaperAll = document.select("#newspaper-b").first()
+                        var bals = document.select("#newspaper-b")
+                        if(newspaperAll!=null){
+                            bals = document.select("#newspaper-b").first().select("tbody tr")
+                            val adapter = BalAdapter(bals,activity!!)
+                            view.list.adapter = adapter
+                        }else view.emptyText.visibility = View.VISIBLE
 
                         if(!protocols.containsAll(bals.eachText())) {
                             for (bal in bals) {
                                 val bprotokol = bal.allElements[5].text()
                                 if (!protocols.contains(bprotokol)) {
                                     protocols.add(bprotokol)
-
+                                    notification()
                                 }
                             }
                             val editor = sharedPreferences.edit()
                             editor.putStringSet("protocols", protocols)
                             editor.apply()
-                            Log.d("------old protocols",protocols.toString())
-
-
-
-
                         }
 
-                        if(bals.size>0){
-                            val adapter = BalAdapter(bals,activity!!)
-                            view.list.adapter = adapter
-                        }else view.emptyText.visibility = View.VISIBLE
+
 
                         view.loader.visibility = View.GONE
                     }
 
                 })
             }
-        }, 0, 5000)
+        }, 0, 15000)
 
 
         return view
-    }
-
-    fun printProtocols(){
-        val protocolsAll = sharedPreferences.getStringSet("protocols", hashSetOf())
-        Log.d("------afterAll",protocolsAll.toString())
     }
 
     fun notification(){
@@ -112,7 +112,10 @@ class BalFragment : Fragment() {
         val pendingIntent = PendingIntent.getActivity(activity, 0, ii, 0)
         notification.setContentText("Yeni cərimə balınız var")
         notification.setContentIntent(pendingIntent)
-        notification.setSmallIcon(R.mipmap.background)
+        notification.setSmallIcon(R.drawable.ic_info)
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val r = RingtoneManager.getRingtone(context, alarmSound)
+        r.play()
 
         val mNotificationManager = activity!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
