@@ -62,8 +62,10 @@ class HomeActivity : AppCompatActivity() {
         notificationManager.deleteNotificationChannel("notify_cprotocol")
 
         var notificationRefer = 0
-        if(intent.extras!=null)
+        if(intent.extras!=null){
             notificationRefer = intent.extras.getInt("not_type", 0)
+            Log.d("-------not_type",notificationRefer.toString())
+        }
 
 
         val adapter = FragmentPager(this, supportFragmentManager)

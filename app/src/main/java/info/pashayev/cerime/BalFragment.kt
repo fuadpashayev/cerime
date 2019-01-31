@@ -67,7 +67,6 @@ class BalFragment : Fragment() {
         timer = Timer()
         timer?.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-                notification()
                 Query(activity!!).post(url,params,headers,object:ResponseCallBack{
                     override fun onSuccess(response: String?) {
                         val res = response?.string()

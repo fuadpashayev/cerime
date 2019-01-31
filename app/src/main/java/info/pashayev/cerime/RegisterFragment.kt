@@ -94,8 +94,8 @@ class RegisterFragment : Fragment() {
                             editor.apply()
                             val intent = Intent(activity, HomeActivity::class.java)
                             startActivity(intent)
-                            view.loader.visibility = View.GONE
                         }
+                            view.loader.visibility = View.GONE
                     }
 
                 })

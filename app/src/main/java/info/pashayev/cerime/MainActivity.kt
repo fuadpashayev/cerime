@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity() {
                         editor.apply()
                         val intent = Intent(this@MainActivity, HomeActivity::class.java)
                         startActivity(intent)
-                        loader.visibility = View.GONE
                     }
+                        loader.visibility = View.GONE
 
 
                 }
